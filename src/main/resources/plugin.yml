@@ -1,0 +1,4 @@
+name: MinecraftServer
+author: Bolt61
+main: ch.bolt61.minecraft.server.Main
+version: 0.0.1

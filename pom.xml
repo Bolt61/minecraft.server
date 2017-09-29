@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>ch.bolt61</groupId>
+  	<artifactId>minecraft.server</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  
+  	<build>
+		<resources>
+	    	<resource>
+	        	<directory>src/main/resources</directory>
+	            <filtering>true</filtering>
+	        </resource>
+	    </resources>
+  	</build>
+ 
+  	<properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  	</properties>
+ 
+  	<repositories>
+    	<repository>
+        	<id>maven-repo</id>
+        	<url>https://repo1.maven.org/maven2/</url>
+    	</repository>
+    	<repository>
+        	<id>spigot-repo</id>
+        	<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    	</repository>
+  	</repositories>
+ 
+  	<dependencies>
+  		<dependency>
+    		<groupId>mysql</groupId>
+    		<artifactId>mysql-connector-java</artifactId>
+    		<version>5.1.6</version>
+    		<scope>compile</scope>
+		</dependency>
+  		<dependency>
+    		<groupId>org.spigotmc</groupId>
+        	<artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+      		<groupId>org.bukkit</groupId>
+      		<artifactId>bukkit</artifactId>
+      		<version>1.8.8-R0.1-SNAPSHOT</version>
+      		<scope>provided</scope>
+        </dependency>
+  	</dependencies>
+</project>
