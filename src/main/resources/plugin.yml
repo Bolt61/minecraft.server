@@ -1,4 +1,13 @@
 name: MinecraftServer
-author: Bolt61
+authors: [Bolt61]
 main: ch.bolt61.minecraft.server.Main
 version: 0.0.1
+description: A server plugin
+website: nartr.ch
+contact: bolt61.minecraft@gmail.com
+
+commands:
+  setlobby:
+    description: Set the lobby to your position
+    usage: /setlobby
+    aliases: [sl]
