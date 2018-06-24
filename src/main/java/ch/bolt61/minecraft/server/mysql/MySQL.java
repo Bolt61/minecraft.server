@@ -51,12 +51,6 @@ public class MySQL {
 			}
 		}
 	}
-
-	public void update(PreparedStatement stmt) {
-		if(isConnected()) {
-			executor.execute(() -> queryUpdate(stmt));
-		}
-	}
 	
 	public void update(String statement) {
 		if(isConnected()) {
@@ -64,14 +58,14 @@ public class MySQL {
 		}
 	}
 	
-	public void query(PreparedStatement stmt, Consumer<ResultSet> consumer) {
+	
+	private void queryUpdate(String query) {
 		if(isConnected()) {
-			executor.execute(() -> {
-				ResultSet rs = query(stmt);
-				Bukkit.getScheduler().runTask(plugin, () -> {
-					consumer.accept(rs);
-				});
-			});
+			try (PreparedStatement statement = conn.prepareStatement(query)){
+				statement.execute();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 	
@@ -86,41 +80,10 @@ public class MySQL {
 		}
 	}
 	
-	private void queryUpdate(String query) {
-		if(isConnected()) {
-			try (PreparedStatement statement = conn.prepareStatement(query)){
-				queryUpdate(statement);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
-	
-	private void queryUpdate(PreparedStatement stmt) {
-		if(isConnected()) {
-			try {
-				stmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	private ResultSet query(String query) {
 		if(isConnected()) {
 			try {
-				return query(conn.prepareStatement(query));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-	
-	private ResultSet query(PreparedStatement stmt) {
-		if(isConnected()) {
-			try {
-				return stmt.executeQuery();
+				return conn.prepareStatement(query).executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

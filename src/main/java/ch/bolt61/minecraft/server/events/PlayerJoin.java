@@ -13,7 +13,7 @@ public class PlayerJoin implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
-		e.setJoinMessage(Main.getInstance().getConfig().getString("Messages.join").replace('&', 'ง').replace("[player]", p.getDisplayName()));
+		e.setJoinMessage(Main.getInstance().getConfig().getString("Messages.join").replace('&', 'ยง').replace("[player]", p.getDisplayName()));
 		
 		LocationUtilities.teleport("lobby", p);
 	}

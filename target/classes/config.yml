@@ -9,7 +9,7 @@ Messages:
   join: '&6[player] ist dem Spiel beigetreten'
   quit: '&6[player] hat das Spiel verlassen'
   no_console: '&cDu musst ein Spieler sein'
-  no_right: '&cDu hast nicht das Recht, diesen Befehl auszuf�hren'
+  no_right: '&cDu hast nicht das Recht, diesen Befehl auszufuehren'
   position:
     lobby: '&6Lobby erfolgreich gesetzt'
 Settings:

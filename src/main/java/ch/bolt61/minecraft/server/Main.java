@@ -47,12 +47,6 @@ public class Main extends JavaPlugin {
 	private void loadRanks() {
 		this.ranks = new ArrayList<>();
 		
-		String t1 = "CREATE TABLE IF NOT EXISTS ranks (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(20))";
-		mysql.update(t1);
-		
-		String t2 = "CREATE TABLE IF NOT EXISTS permissions (id INT, permission VARCHAR(20), PRIMARY KEY(id, permission))";
-		mysql.update(t2);
-		
 		mysql.query("SELECT * FROM ranks", rs -> {
 			try {
 				while(rs.next()) {
@@ -60,21 +54,19 @@ public class Main extends JavaPlugin {
 					String name = rs.getString("name");
 					
 					ranks.add(new Rank(id, name));
-				}
-				mysql.query("SELECT * FROM permissions", result -> {
-					try {
-						while(result.next()) {
-							int id = result.getInt("id");
-							String perm = result.getString("permission");
-							Rank r = getByID(id);
-							if(r != null) {
+					
+					mysql.query("SELECT * FROM permissions WHERE id='" + id + "'", result -> {
+						try {
+							while(result.next()) {
+								String perm = result.getString("permission");
+								Rank r = getByID(id);
 								r.addPermission(perm);
 							}
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				});
+					});
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -86,9 +78,15 @@ public class Main extends JavaPlugin {
 				getConfig().getString("MySQL.user"), getConfig().getString("MySQL.password"), getConfig().getInt("MySQL.port"));
 		mysql.connect();
 		
-		String table = "CREATE TABLE IF NOT EXISTS locations (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(20), world VARCHAR(20), "
+		String tLocations = "CREATE TABLE IF NOT EXISTS locations (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(20), world VARCHAR(20), "
 				+ "x DECIMAL (10, 4), y DECIMAL (10, 4), z DECIMAL (10, 4), yaw DECIMAL (10, 4), pitch DECIMAL (10, 4))";
-		mysql.update(table);
+		mysql.update(tLocations);
+		
+		String tRanks = "CREATE TABLE IF NOT EXISTS ranks (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(20))";
+		mysql.update(tRanks);
+		
+		String tPermissions = "CREATE TABLE IF NOT EXISTS permissions (id INT, permission VARCHAR(20), PRIMARY KEY(id, permission))";
+		mysql.update(tPermissions);
 	}
 	
 	private void loadConfig() {

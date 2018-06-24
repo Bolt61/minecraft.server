@@ -14,13 +14,13 @@ public class SetLobby implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(Main.getInstance().getConfig().getString("Messages.no_console").replace('&', 'ง'));
+			sender.sendMessage(Main.getInstance().getConfig().getString("Messages.no_console").replace('&', 'ยง'));
 			return true;
 		}
 		
 		Player p = (Player) sender;
 		LocationUtilities.setLocation("lobby", p.getLocation());
-		p.sendMessage(Main.getInstance().getConfig().getString("Messages.position.lobby").replace('&', 'ง'));
+		p.sendMessage(Main.getInstance().getConfig().getString("Messages.position.lobby").replace('&', 'ยง'));
 		
 		return true;
 	}

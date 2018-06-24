@@ -13,6 +13,6 @@ public class PlayerQuit implements Listener {
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		
-		e.setQuitMessage(Main.getInstance().getConfig().getString("Messages.quit").replace('&', 'ง').replace("[player]", p.getDisplayName()));
+		e.setQuitMessage(Main.getInstance().getConfig().getString("Messages.quit").replace('&', 'ยง').replace("[player]", p.getDisplayName()));
 	}
 }

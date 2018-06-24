@@ -17,10 +17,6 @@ public class Rank {
 		this.permissions = new ArrayList<>();
 	}
 	
-	public void addPermission(String perm) {
-		permissions.add(perm);
-	}
-	
 	public int getId() {
 		return id;
 	}
@@ -29,12 +25,20 @@ public class Rank {
 		return name;
 	}
 	
+	public void addPermission(String perm) {
+		permissions.add(perm);
+	}
+	
+	public boolean hasPermission(String permission) {
+		return permissions.contains(permission);
+	}
+	
 	public void updatePermission(String perm) {
 		Main.getInstance().getMysql().query("SELECT * FROM permissions WHERE id='" + id + "' AND permission='" + perm + "'", rs -> {
 			try {
 				if(!rs.next()) {
-					Main.getInstance().getMysql().update("INSERT INTO permissions (id, permission) VALUES ('" + id + "', '" + perm + "'");
 					permissions.add(perm);
+					Main.getInstance().getMysql().update("INSERT INTO permissions (id, permission) VALUES ('" + id + "', '" + perm + "'");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -46,16 +50,12 @@ public class Rank {
 		Main.getInstance().getMysql().query("SELECT * FROM permissions WHERE id='" + id + "' AND permission='" + perm + "'", rs -> {
 			try {
 				if(rs.next()) {
-					Main.getInstance().getMysql().update("DELETE * FROM permissions WHERE id='" + id + "' AND permission='" + perm + "'");
 					permissions.remove(perm);
+					Main.getInstance().getMysql().update("DELETE * FROM permissions WHERE id='" + id + "' AND permission='" + perm + "'");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
-	}
-	
-	public boolean hasPermission(String permission) {
-		return permissions.contains(permission);
 	}
 }
